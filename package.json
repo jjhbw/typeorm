@@ -18,8 +18,7 @@
     "./browser/driver/mongodb/MongoDriver.js": "./browser/platform/BrowserDisabledDriversDummy.js",
     "./browser/driver/mongodb/MongoQueryRunner.js": "./browser/platform/BrowserDisabledDriversDummy.js",
     "./browser/entity-manager/MongoEntityManager.js": "./browser/platform/BrowserDisabledDriversDummy.js",
-    "./browser/repository/MongoRepository.js": "./browser/platform/BrowserDisabledDriversDummy.js",
-    "./index.js": "./browser/index.js"
+    "./browser/repository/MongoRepository.js": "./browser/platform/BrowserDisabledDriversDummy.js"
   },
   "main": "./build/package/index.js",
   "types": "./build/package/index.d.ts",
