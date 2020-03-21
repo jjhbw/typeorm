@@ -9,7 +9,6 @@
     "name": "Umed Khudoiberdiev",
     "email": "pleerock.me@gmail.com"
   },
-  "main": "./index.js",
   "browser": {
     "./browser/driver/postgres/PostgresDriver.js": "./browser/platform/BrowserDisabledDriversDummy.js",
     "./browser/driver/oracle/OracleDriver.ts": "./browser/platform/BrowserDisabledDriversDummy.js",
@@ -22,6 +21,8 @@
     "./browser/repository/MongoRepository.js": "./browser/platform/BrowserDisabledDriversDummy.js",
     "./index.js": "./browser/index.js"
   },
+  "main": "./build/package/index.js",
+  "types": "./build/package/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/typeorm/typeorm.git"
@@ -138,7 +139,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 2"
   },
   "bin": {
-    "typeorm": "./cli.js"
+    "typeorm": "./build/package/cli.js"
   },
   "collective": {
     "type": "opencollective",
