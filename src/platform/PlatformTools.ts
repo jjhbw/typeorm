@@ -34,81 +34,14 @@ export class PlatformTools {
         // this is useful when we are using typeorm package globally installed and it accesses drivers
         // that are not installed globally
 
-        try {
-
             // switch case to explicit require statements for webpack compatibility.
 
             switch (name) {
-
-                /**
-                * mongodb
-                */
-                case "mongodb":
-                    return require("mongodb");
-
-                /**
-                * hana
-                */
-                case "@sap/hdbext":
-                    return require("@sap/hdbext");
-
-                /**
-                * mysql
-                */
-                case "mysql":
-                    return require("mysql");
-
-                case "mysql2":
-                    return require("mysql2");
-
-                /**
-                * oracle
-                */
-                case "oracledb":
-                    return require("oracledb");
-
-                /**
-                * postgres
-                */
-                case "pg":
-                    return require("pg");
-
-                case "pg-native":
-                    return require("pg-native");
-
-                case "pg-query-stream":
-                    return require("pg-query-stream");
-
-                /**
-                * redis
-                */
-                case "redis":
-                    return require("redis");
-
-                /**
-                 * ioredis
-                 */
-                case "ioredis":
-                case "ioredis/cluster":
-                    return require("ioredis");
-
                 /**
                 * sqlite
                 */
                 case "sqlite3":
                     return require("sqlite3");
-
-                /**
-                * sql.js
-                */
-                case "sql.js":
-                    return require("sql.js");
-
-                /**
-                * sqlserver
-                */
-                case "mssql":
-                    return require("mssql");
 
                 /**
                 * other modules
@@ -127,24 +60,15 @@ export class PlatformTools {
 
                 case "glob":
                     return require("glob");
-
-                case "typeorm-aurora-data-api-driver":
-                    return require("typeorm-aurora-data-api-driver");
                 /**
                 * default
                 */
                 default:
-                    return require(name);
+                    throw new Error("expression-based requires are removed from this TypeORM fork")
 
             }
 
-        } catch (err) {
-            if (!path.isAbsolute(name) && name.substr(0, 2) !== "./" && name.substr(0, 3) !== "../") {
-                return require(path.resolve(process.cwd() + "/node_modules/" + name));
-            }
-
-            throw err;
-        }
+        
     }
 
     /**
