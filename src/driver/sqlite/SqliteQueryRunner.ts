@@ -82,6 +82,11 @@ export class SqliteQueryRunner extends AbstractSqliteQueryRunner {
                 }
             };
 
+            if (!connection.isConnected){
+                fail(new ConnectionIsNotSetError('sqlite'))
+                return
+            }
+
             await execute();
         });
     }
