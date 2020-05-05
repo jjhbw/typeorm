@@ -63,7 +63,7 @@ export class Connection {
     /**
      * Indicates if connection is initialized or not.
      */
-    readonly isConnected: boolean;
+    protected _isConnected: boolean;
 
     /**
      * Database driver used by this connection.
@@ -129,7 +129,7 @@ export class Connection {
         this.queryResultCache = options.cache ? new QueryResultCacheFactory(this).create() : undefined;
         this.relationLoader = new RelationLoader(this);
         this.relationIdLoader = new RelationIdLoader(this);
-        this.isConnected = false;
+        this._isConnected = false;
     }
 
     // -------------------------------------------------------------------------
@@ -183,7 +183,7 @@ export class Connection {
             await this.queryResultCache.connect();
 
         // set connected status for the current connection
-        ObjectUtils.assign(this, { isConnected: true });
+        this._isConnected = true
 
         try {
 
@@ -229,7 +229,11 @@ export class Connection {
         if (this.queryResultCache)
             await this.queryResultCache.disconnect();
 
-        ObjectUtils.assign(this, { isConnected: false });
+        this._isConnected = false
+    }
+
+    get isConnected(): boolean{
+        return this._isConnected
     }
 
     /**

@@ -3,6 +3,7 @@ import {QueryFailedError} from "../../error/QueryFailedError";
 import {AbstractSqliteQueryRunner} from "../sqlite-abstract/AbstractSqliteQueryRunner";
 import {SqliteDriver} from "./SqliteDriver";
 import {Broadcaster} from "../../subscriber/Broadcaster";
+import { ConnectionIsNotSetError } from '../../error/ConnectionIsNotSetError';
 
 /**
  * Runs queries on a single sqlite database connection.
@@ -37,7 +38,7 @@ export class SqliteQueryRunner extends AbstractSqliteQueryRunner {
 
         const connection = this.driver.connection;
 
-        return new Promise<any[]>(async (ok, fail) => {
+        return new Promise<any[]>((ok, fail) => {
 
             const handler = function (err: any, result: any) {
 
@@ -56,14 +57,18 @@ export class SqliteQueryRunner extends AbstractSqliteQueryRunner {
                 }
             };
 
-            const databaseConnection = await this.connect();
-            this.driver.connection.logger.logQuery(query, parameters, this);
+            if (!connection.isConnected){
+                fail(new ConnectionIsNotSetError('sqlite'))
+                return
+            }
+
+            connection.logger.logQuery(query, parameters, this);
             const queryStartTime = +new Date();
             const isInsertQuery = query.substr(0, 11) === "INSERT INTO";
             if (isInsertQuery) {
-                databaseConnection.run(query, parameters, handler);
+                this.driver.databaseConnection.run(query, parameters, handler);
             } else {
-                databaseConnection.all(query, parameters, handler);
+                this.driver.databaseConnection.all(query, parameters, handler);
             }
         });
     }
