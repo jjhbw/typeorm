@@ -4,6 +4,7 @@ import {AbstractSqliteQueryRunner} from "../sqlite-abstract/AbstractSqliteQueryR
 import {SqliteConnectionOptions} from "./SqliteConnectionOptions";
 import {SqliteDriver} from "./SqliteDriver";
 import {Broadcaster} from "../../subscriber/Broadcaster";
+import { ConnectionIsNotSetError } from '../../error/ConnectionIsNotSetError';
 
 /**
  * Runs queries on a single sqlite database connection.
@@ -76,6 +77,11 @@ export class SqliteQueryRunner extends AbstractSqliteQueryRunner {
                     ok(isInsertQuery ? this["lastID"] : result);
                 }
             };
+
+            if (!connection.isConnected){
+                fail(new ConnectionIsNotSetError('sqlite'))
+                return
+            }
 
             await execute();
         });
