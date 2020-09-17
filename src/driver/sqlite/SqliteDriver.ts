@@ -1,6 +1,5 @@
 import mkdirp from 'mkdirp';
 import path from 'path';
-import { DriverPackageNotInstalledError } from "../../error/DriverPackageNotInstalledError";
 import { SqliteQueryRunner } from "./SqliteQueryRunner";
 import { DriverOptionNotSetError } from "../../error/DriverOptionNotSetError";
 import { PlatformTools } from "../../platform/PlatformTools";
@@ -128,12 +127,7 @@ export class SqliteDriver extends AbstractSqliteDriver {
      * If driver dependency is not given explicitly, then try to load it via "require".
      */
     protected loadDependencies(): void {
-        try {
-            this.sqlite = PlatformTools.load("sqlite3").verbose();
-
-        } catch (e) {
-            throw new DriverPackageNotInstalledError("SQLite", "sqlite3");
-        }
+        this.sqlite = PlatformTools.load("sqlite3").verbose();
     }
 
     /**
