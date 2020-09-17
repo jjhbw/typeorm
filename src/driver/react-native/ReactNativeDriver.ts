@@ -5,7 +5,6 @@ import {QueryRunner} from "../../query-runner/QueryRunner";
 import {Connection} from "../../connection/Connection";
 import {DriverOptionNotSetError} from "../../error/DriverOptionNotSetError";
 import {DriverPackageNotInstalledError} from "../../error/DriverPackageNotInstalledError";
-import {PlatformTools} from "../../platform/PlatformTools";
 
 export class ReactNativeDriver extends AbstractSqliteDriver {
     options: ReactNativeConnectionOptions;
@@ -89,11 +88,6 @@ export class ReactNativeDriver extends AbstractSqliteDriver {
      * If driver dependency is not given explicitly, then try to load it via "require".
      */
     protected loadDependencies(): void {
-        try {
-            this.sqlite = PlatformTools.load("react-native-sqlite-storage");
-
-        } catch (e) {
-            throw new DriverPackageNotInstalledError("React-Native", "react-native-sqlite-storage");
-        }
+        throw new DriverPackageNotInstalledError("React-Native", "react-native-sqlite-storage");
     }
 }
