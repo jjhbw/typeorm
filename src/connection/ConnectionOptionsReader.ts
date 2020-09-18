@@ -106,18 +106,12 @@ export class ConnectionOptionsReader {
         if (PlatformTools.getEnvVariable("TYPEORM_CONNECTION") || PlatformTools.getEnvVariable("TYPEORM_URL")) {
             connectionOptions = await new ConnectionOptionsEnvReader().read();
 
-        } else if (foundFileFormat === "js" || foundFileFormat === "cjs" || foundFileFormat === "ts") {
-            const configModule = await require(configFile);
-
-            if (configModule && "__esModule" in configModule && "default" in configModule) {
-                connectionOptions = configModule.default;
-            } else {
-                connectionOptions = configModule;
-            }
-
+        } else if (foundFileFormat === "js" || foundFileFormat === "cjs") {
+            throw new Error("Function has been removed due to incompatibility with Webpack (used dynamic require())")
+        } else if (foundFileFormat === "ts") {
+            throw new Error("Function has been removed due to incompatibility with Webpack (used dynamic require())")
         } else if (foundFileFormat === "json") {
-            connectionOptions = require(configFile);
-
+            throw new Error("Function has been removed due to incompatibility with Webpack (used dynamic require())")
         } else if (foundFileFormat === "yml") {
             connectionOptions = await new ConnectionOptionsYmlReader().read(configFile);
 
