@@ -108,14 +108,11 @@ export class ConnectionOptionsReader {
             connectionOptions = new ConnectionOptionsEnvReader().read();
 
         } else if (foundFileFormat === "js" || foundFileFormat === "cjs") {
-            connectionOptions = await require(configFile);
-
+            throw new Error("Function has been removed due to incompatibility with Webpack (used dynamic require())")
         } else if (foundFileFormat === "ts") {
-            connectionOptions = await require(configFile);
-
+            throw new Error("Function has been removed due to incompatibility with Webpack (used dynamic require())")
         } else if (foundFileFormat === "json") {
-            connectionOptions = require(configFile);
-
+            throw new Error("Function has been removed due to incompatibility with Webpack (used dynamic require())")
         } else if (foundFileFormat === "yml") {
             connectionOptions = new ConnectionOptionsYmlReader().read(configFile);
 
