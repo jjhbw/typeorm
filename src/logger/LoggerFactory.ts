@@ -2,7 +2,6 @@ import {Logger} from "./Logger";
 import {LoggerOptions} from "./LoggerOptions";
 import {SimpleConsoleLogger} from "./SimpleConsoleLogger";
 import {AdvancedConsoleLogger} from "./AdvancedConsoleLogger";
-import {FileLogger} from "./FileLogger";
 import {DebugLogger} from "./DebugLogger";
 
 /**
@@ -21,9 +20,6 @@ export class LoggerFactory {
             switch (logger) {
                 case "simple-console":
                     return new SimpleConsoleLogger(options);
-
-                case "file":
-                    return new FileLogger(options);
 
                 case "advanced-console":
                     return new AdvancedConsoleLogger(options);
