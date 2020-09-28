@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import appRootPath from "app-root-path";
 import {ConnectionOptions} from "./ConnectionOptions";
 import {PlatformTools} from "../platform/PlatformTools";
 import {ConnectionOptionsEnvReader} from "./options-reader/ConnectionOptionsEnvReader";
@@ -194,10 +193,7 @@ export class ConnectionOptionsReader {
      * Gets directory where configuration file should be located.
      */
     protected get baseDirectory(): string {
-        if (this.options && this.options.root)
-            return this.options.root;
-
-        return appRootPath.path;
+        throw new Error("removed app-root-path in this fork because it does not paly nice with webpack/create-react-app")
     }
 
     /**
